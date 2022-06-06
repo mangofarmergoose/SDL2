@@ -40,6 +40,11 @@ void HandleEvents()
     }
 }
 
+void HandleUpdate(){
+    object1->Update();
+    object2->Update();
+}
+
 void HandleRendering()
 {
     // Render our objects
@@ -96,6 +101,7 @@ int main()
     object2 = new GameEntity(app->GetRenderer(), "./images/wallpaper.bmp");
     // Set callback functions
     app->SetEventCallback(HandleEvents);
+    app->SetUpdateCallback(HandleUpdate);
     app->SetRenderCallback(HandleRendering);
     // Run our application until terminated
     app->RunLoop();

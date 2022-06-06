@@ -25,7 +25,6 @@ void TexturedRect::SetPosition(int x, int y)
     m_rect.y = y;
 }
 
-
 void TexturedRect::SetDimension(int w, int h)
 {
     m_rect.w = w;
@@ -46,4 +45,18 @@ void TexturedRect::Render(SDL_Renderer* renderer)
     SDL_RenderCopy(renderer, m_texture, NULL, &m_rect);
 }
 
+int TexturedRect::GetPositionX(){
+    return m_rect.x;
+}
 
+int TexturedRect::GetPositionY(){
+    return m_rect.y;
+}
+
+int TexturedRect::GetWidth(){
+    return m_rect.w;
+}
+
+int TexturedRect::GetHeight(){
+    return m_rect.h;
+}

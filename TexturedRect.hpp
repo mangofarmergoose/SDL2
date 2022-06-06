@@ -20,5 +20,9 @@ public:
     SDL_bool IsColliding(TexturedRect& obj);
     void Update();
     void Render(SDL_Renderer* renderer);
+    int GetPositionX();
+    int GetPositionY();
+    int GetWidth();
+    int GetHeight();
 };
 #endif

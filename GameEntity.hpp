@@ -13,6 +13,7 @@ class GameEntity{
         void Render();
         TexturedRect& GetTexturedRect();
         Collider2D& GetCollider2D();
+        
 
     private:
         TexturedRect* m_sprite;   

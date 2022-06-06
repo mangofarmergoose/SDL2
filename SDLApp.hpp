@@ -11,6 +11,8 @@ class SDLApp{
         ~SDLApp();
         // Handle Events
         void SetEventCallback(std::function<void(void)> func);
+        // Handle Update
+        void SetUpdateCallback(std::function<void(void)> func);
         // Handle Render
         void SetRenderCallback(std::function<void(void)> func);
         // Loop our application
@@ -46,6 +48,7 @@ class SDLApp{
             // Store our callback functions
             //function pointers
             std::function<void(void)> m_EventCallback;
+            std::function<void(void)> m_UpdateCallback;
             std::function<void(void)> m_RenderCallback;
 };
 

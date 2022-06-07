@@ -26,6 +26,6 @@ void Collider2D::SetAbsoluteDimensions(int w, int h){
     m_colliderRect.h = h;
 }
 
-SDL_Rect& Collider2D::GetColliderBoundingBox() const{
+SDL_Rect& Collider2D::GetColliderBoundingBox(){
     return m_colliderRect;
 }

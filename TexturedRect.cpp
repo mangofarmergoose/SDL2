@@ -60,3 +60,4 @@ int TexturedRect::GetWidth(){
 int TexturedRect::GetHeight(){
     return m_rect.h;
 }
+

@@ -36,7 +36,7 @@ void GameEntity::Update(){
 void GameEntity::Render()
 {
     if (m_sprite != nullptr)
-    {
+    {   
         m_sprite->Render(m_renderer);
     }
     if (m_collider != nullptr)

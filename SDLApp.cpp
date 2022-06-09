@@ -33,15 +33,9 @@ void SDLApp::SetEventCallback(std::function<void(void)> func){
     m_EventCallback = func;
 }
 
-// Handle Updates
-void SDLApp::SetUpdateCallback(std::function<void(void)> func){
-    m_UpdateCallback = func;
-}
-
 // Handle Render
 void SDLApp::SetRenderCallback(std::function<void(void)> func){
     m_RenderCallback = func;
-    
 }
 
 // Loop our application
@@ -53,8 +47,6 @@ void SDLApp::RunLoop(){
         // (1) Handle events first
         // User specifies what to do in the events callback
         m_EventCallback();
-        //Handle Updates
-        m_UpdateCallback();
         // (2) Then handle our rendering
         // (3) Clear and Draw the Screen
         // Gives us a clear "canvas"

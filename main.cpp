@@ -29,13 +29,15 @@ void HandleEvents()
 
         if (event.button.button == SDL_BUTTON_LEFT)
         {
-            if (object2->GetTexturedRect().IsColliding(object1->GetTexturedRect()))
+            if (object2->GetCollider2D(0).IsColliding(object1->GetCollider2D(0)))
             {
-                std::cout << "Is colliding" << std::endl;
+                std::cout << "Is colliding with hitbox 1" << std::endl;
             }
-            else
-            {
-                std::cout << "Not colliding" << std::endl;
+            if (object2->GetCollider2D(0).IsColliding(object1->GetCollider2D(1))){
+                std::cout << "is colliding with hitbox 2" << std::endl;
+            }
+            else{
+                std::cout << "not colliding" << std::endl;
             }
         }
     }
@@ -44,6 +46,21 @@ void HandleEvents()
 void HandleUpdate(){
     object1->Update();
     object2->Update();
+
+    object1->GetCollider2D(0).SetAbsolutePosition(object1->GetTexturedRect().GetPositionX(),
+    object1->GetTexturedRect().GetPositionY());
+    object1->GetCollider2D(0).SetAbsoluteDimensions(object1->GetTexturedRect().GetWidth(),
+    object1->GetTexturedRect().GetHeight()/2);
+
+    object1->GetCollider2D(1).SetAbsolutePosition(object1->GetTexturedRect().GetPositionX(),
+    object1->GetTexturedRect().GetPositionY()+object1->GetTexturedRect().GetHeight()/2);
+    object1->GetCollider2D(1).SetAbsoluteDimensions(object1->GetTexturedRect().GetWidth(),
+    object1->GetTexturedRect().GetHeight()/2);
+
+    object2->GetCollider2D(0).SetAbsolutePosition(object2->GetTexturedRect().GetPositionX(),
+    object2->GetTexturedRect().GetPositionY());
+    object2->GetCollider2D(0).SetAbsoluteDimensions(object2->GetTexturedRect().GetWidth(),
+    object2->GetTexturedRect().GetHeight());
 }
 
 void HandleRendering()
@@ -111,6 +128,7 @@ int main()
     
     object1 = new GameEntity(app->GetRenderer());
     object1->AddTexturedRectComponent("./images/kong.bmp", 0xFF, 0x00, 0xFF);
+    object1->AddCollider2D();
     object1->AddCollider2D();
     
     object2 = new GameEntity(app->GetRenderer());

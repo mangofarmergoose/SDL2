@@ -9,10 +9,14 @@ private:
     SDL_Rect m_rect;
     SDL_Texture *m_texture;
     inline SDL_Rect GetRect() const { return m_rect; };
+    int m_redcolorkey;
+    int m_greencolorkey;
+    int m_bluecolorkey;
 
 public:
     // constructor
     TexturedRect(SDL_Renderer *renderer, std::string filepath);
+    TexturedRect(SDL_Renderer *renderer, std::string filepath, int r, int g, int b);
     void InitDefaults();
     // destructor
     ~TexturedRect();

@@ -1,12 +1,15 @@
 #include "GameEntity.hpp"
-
-GameEntity::GameEntity(SDL_Renderer *renderer, std::string filepath)
-{
+#include <iostream>
+GameEntity::GameEntity(){
     m_sprite = nullptr;
+    m_collider = nullptr;
+}
+
+GameEntity::GameEntity(SDL_Renderer* renderer){
     m_renderer = renderer;
-    m_sprite = new TexturedRect(m_renderer, filepath);
-    m_collider = new Collider2D();
-};
+    m_sprite = nullptr;
+    m_collider = nullptr;
+}
 
 GameEntity::~GameEntity(){
     if (m_sprite != nullptr)
@@ -45,6 +48,19 @@ void GameEntity::Render()
         SDL_RenderDrawRect(m_renderer, &m_collider->GetColliderBoundingBox());
     }
 };
+
+void GameEntity::AddTexturedRectComponent(std::string spritepath){
+    m_sprite = new TexturedRect(m_renderer, spritepath);
+}
+
+void GameEntity::AddTexturedRectComponent(std::string spritepath, int r, int g, int b){
+    m_sprite = new TexturedRect(m_renderer, spritepath, r, g, b);
+}
+
+void GameEntity::AddCollider2D(){
+    m_collider = new Collider2D();
+}
+
 TexturedRect& GameEntity::GetTexturedRect()
 {
     return *m_sprite;

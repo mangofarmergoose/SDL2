@@ -27,7 +27,7 @@ main.o: main.cpp ./glad/include/glad/glad.h /Library/Frameworks/SDL2.framework/H
 	clang++ -c $< $(IncludeGlad) $(IncludeSDL)
 
 prog: glad.o main.o TexturedRect.o ResManager.o AnimatedSprite.o SDLApp.o GameEntity.o Collider2D.o
-	clang++ *.o -o prog -F/Library/Frameworks -framework SDL2
+	clang++ -g *.o -o prog -F/Library/Frameworks -framework SDL2
 
 clean:
 	rm -f main.o prog TexturedRect.o ResManager.o AnimatedSprite.o SDLApp.o GameEntity.o Collider2D.o

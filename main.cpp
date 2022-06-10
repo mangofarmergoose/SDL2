@@ -21,7 +21,6 @@ void HandleEvents()
     // Start our event loop
     while (SDL_PollEvent(&event))
     {
-        std::cout << "test" << std::endl;
         // Handle each specific event
         if (event.type == SDL_QUIT)
         {
@@ -42,11 +41,16 @@ void HandleEvents()
     }
 }
 
+void HandleUpdate(){
+    object1->Update();
+    object2->Update();
+}
+
 void HandleRendering()
 {
     // Render our objects
     object1->GetTexturedRect().SetPosition(app->GetMouseX(), app->GetMouseY());
-    object2->GetTexturedRect().SetDimension(100, 100);
+    object1->GetTexturedRect().SetDimension(100, 100);
 
     static int posX = 0;
     static int posY = 0;
@@ -104,10 +108,17 @@ int main()
     app = new SDLApp(title, 20, 20, 640, 480);
     app->SetMaxFrameRate(8);
     // Create any objects in our scene
-    object1 = new GameEntity(app->GetRenderer(), "./images/test.bmp");
-    object2 = new GameEntity(app->GetRenderer(), "./images/test.bmp");
+    
+    object1 = new GameEntity(app->GetRenderer());
+    object1->AddTexturedRectComponent("./images/kong.bmp", 0xFF, 0x00, 0xFF);
+    object1->AddCollider2D();
+    
+    object2 = new GameEntity(app->GetRenderer());
+    object2->AddTexturedRectComponent("./images/kong.bmp");
+    object2->AddCollider2D();
     // Set callback functions
     app->SetEventCallback(HandleEvents);
+    app->SetUpdateCallback(HandleUpdate);
     app->SetRenderCallback(HandleRendering);
     // Run our application until terminated
     app->RunLoop();

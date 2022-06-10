@@ -12,7 +12,7 @@ class Collider2D{
         SDL_Rect& GetColliderBoundingBox();
 
     private:
-        SDL_Rect m_colliderRect;
+        SDL_Rect* m_colliderRect;
 
 };
 

@@ -7,10 +7,16 @@
 
 class GameEntity{
     public:
-        GameEntity(SDL_Renderer* renderer, std::string filepath);
+        GameEntity();
+        GameEntity(SDL_Renderer* renderer);
         ~GameEntity();
         void Update();
         void Render();
+        //adding components
+        void AddTexturedRectComponent(std::string spritepath);
+        void AddTexturedRectComponent(std::string spritepath, int r, int g, int b);
+        void AddCollider2D();
+        //retrieve components
         TexturedRect& GetTexturedRect();
         Collider2D& GetCollider2D();
         

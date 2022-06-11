@@ -9,6 +9,8 @@ class SDLApp{
         SDLApp(const char* title,int x, int y, int w, int h);
         // Destructor
         ~SDLApp();
+        // Initialize Audio
+        void InitAudio();
         // Handle Events
         void SetEventCallback(std::function<void(void)> func);
         // Handle Update

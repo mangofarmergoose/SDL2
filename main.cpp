@@ -1,4 +1,5 @@
 // C++ Standard Libraries
+//clang++ -std=c++17 -D MAC *.cpp -I/usr/local/include -o prog `sdl2-config --cflags --libs` -lSDL2_ttf
 #include <iostream>
 #include <string>
 #include <vector>
@@ -10,9 +11,11 @@
 #include "AnimatedSprite.hpp"
 #include "GameEntity.hpp"
 #include "Collider2D.hpp"
+#include "Sound.hpp"
 SDLApp *app;
 GameEntity *object1;
 GameEntity *object2;
+Sound* CollisionSound;
 
 void HandleEvents()
 {
@@ -31,10 +34,8 @@ void HandleEvents()
         {
             if (object2->GetCollider2D(0).IsColliding(object1->GetCollider2D(0)))
             {
-                std::cout << "Is colliding with hitbox 1" << std::endl;
-            }
-            if (object2->GetCollider2D(0).IsColliding(object1->GetCollider2D(1))){
-                std::cout << "is colliding with hitbox 2" << std::endl;
+                std::cout << "Is colliding with hitbox" << std::endl;
+                CollisionSound->PlaySound();
             }
             else{
                 std::cout << "not colliding" << std::endl;
@@ -50,12 +51,7 @@ void HandleUpdate(){
     object1->GetCollider2D(0).SetAbsolutePosition(object1->GetTexturedRect().GetPositionX(),
     object1->GetTexturedRect().GetPositionY());
     object1->GetCollider2D(0).SetAbsoluteDimensions(object1->GetTexturedRect().GetWidth(),
-    object1->GetTexturedRect().GetHeight()/2);
-
-    object1->GetCollider2D(1).SetAbsolutePosition(object1->GetTexturedRect().GetPositionX(),
-    object1->GetTexturedRect().GetPositionY()+object1->GetTexturedRect().GetHeight()/2);
-    object1->GetCollider2D(1).SetAbsoluteDimensions(object1->GetTexturedRect().GetWidth(),
-    object1->GetTexturedRect().GetHeight()/2);
+    object1->GetTexturedRect().GetHeight());
 
     object2->GetCollider2D(0).SetAbsolutePosition(object2->GetTexturedRect().GetPositionX(),
     object2->GetTexturedRect().GetPositionY());
@@ -122,8 +118,9 @@ int main()
 {
     // Setup the SDLApp
     const char *title = "New SDL2 Abstraction";
-    app = new SDLApp(title, 20, 20, 640, 480);
+    app = new SDLApp("SDL2", 20, 20, 640, 480);
     app->SetMaxFrameRate(8);
+    app->InitAudio();
     // Create any objects in our scene
     
     object1 = new GameEntity(app->GetRenderer());
@@ -134,6 +131,9 @@ int main()
     object2 = new GameEntity(app->GetRenderer());
     object2->AddTexturedRectComponent("./images/kong.bmp");
     object2->AddCollider2D();
+
+    CollisionSound = new Sound("/sounds/collide.wav");
+    CollisionSound->SetupDevice();
     // Set callback functions
     app->SetEventCallback(HandleEvents);
     app->SetUpdateCallback(HandleUpdate);

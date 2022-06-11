@@ -28,6 +28,15 @@ SDLApp::~SDLApp(){
     SDL_Quit();
 }
 
+void SDLApp::InitAudio(){
+    if(SDL_Init(SDL_INIT_AUDIO) < 0){
+        std::cout << "SDL audio could not be initialized: " <<
+                  SDL_GetError();
+    }else{
+        std::cout << "SDL audio system is ready to go\n";
+    }
+}
+
 // Handle Events
 void SDLApp::SetEventCallback(std::function<void(void)> func){
     m_EventCallback = func;

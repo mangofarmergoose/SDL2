@@ -1,9 +1,16 @@
 IncludeGlad = -I./glad/include
 IncludeSDL = -I/Library/Frameworks/SDL2.framework/Headers
+IncludeTTF = -I/usr/local/include/SDL2_ttf
 Framework = -F/Library/Frameworks
 
 glad.o: ./glad/src/glad.c ./glad/include/glad/glad.h
 	clang -c $< $(IncludeGlad)
+
+Sound.o: Sound.cpp Sound.hpp
+	clang++ -c $< $(IncludeSDL)
+
+DynamicText.o: DynamicText.cpp DynamicText.hpp 
+	clang++ -c $< $(IncludeSDL) $(IncludeTTF)
 
 ResManager.o: ResManager.cpp ResManager.hpp
 	clang++ -c $< $(IncludeSDL)
@@ -26,7 +33,7 @@ GameEntity.o: GameEntity.cpp TexturedRect.hpp GameEntity.hpp
 main.o: main.cpp ./glad/include/glad/glad.h /Library/Frameworks/SDL2.framework/Headers/SDL.h
 	clang++ -c $< $(IncludeGlad) $(IncludeSDL)
 
-prog: glad.o main.o TexturedRect.o ResManager.o AnimatedSprite.o SDLApp.o GameEntity.o Collider2D.o
+prog: glad.o main.o TexturedRect.o ResManager.o AnimatedSprite.o SDLApp.o GameEntity.o Collider2D.o Sound.o DynamicText.o
 	clang++ -g *.o -o prog -F/Library/Frameworks -framework SDL2
 
 clean:

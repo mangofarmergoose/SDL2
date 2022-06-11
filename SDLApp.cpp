@@ -37,6 +37,15 @@ void SDLApp::InitAudio(){
     }
 }
 
+void SDLApp::InitDynamicText(){
+    if(TTF_Init() == -1){
+        std::cout << "Could not initailize SDL2_ttf, error: " << TTF_GetError() << std::endl;
+    }
+    else{
+        std::cout << "SDL2_ttf system ready to go!" << std::endl;
+    }
+}
+
 // Handle Events
 void SDLApp::SetEventCallback(std::function<void(void)> func){
     m_EventCallback = func;

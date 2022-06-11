@@ -3,6 +3,7 @@
 
 #include <functional>
 #include "SDL.h"
+#include "SDL_ttf.h"
 class SDLApp{
     public:
         // Constructor
@@ -11,6 +12,8 @@ class SDLApp{
         ~SDLApp();
         // Initialize Audio
         void InitAudio();
+        // Initialize Text
+        void InitDynamicText();
         // Handle Events
         void SetEventCallback(std::function<void(void)> func);
         // Handle Update

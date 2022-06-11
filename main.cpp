@@ -1,9 +1,8 @@
-// C++ Standard Libraries
+//To Compile
 //clang++ -std=c++17 -D MAC *.cpp -I/usr/local/include -o prog `sdl2-config --cflags --libs` -lSDL2_ttf
 #include <iostream>
 #include <string>
 #include <vector>
-#include <memory>
 // Third Party
 #include "SDL.h"
 #include "SDLApp.hpp"
@@ -12,10 +11,13 @@
 #include "GameEntity.hpp"
 #include "Collider2D.hpp"
 #include "Sound.hpp"
+#include "DynamicText.hpp"
 SDLApp *app;
 GameEntity *object1;
 GameEntity *object2;
 Sound* CollisionSound;
+DynamicText* text;
+
 
 void HandleEvents()
 {
@@ -48,20 +50,6 @@ void HandleUpdate(){
     object1->Update();
     object2->Update();
 
-    object1->GetCollider2D(0).SetAbsolutePosition(object1->GetTexturedRect().GetPositionX(),
-    object1->GetTexturedRect().GetPositionY());
-    object1->GetCollider2D(0).SetAbsoluteDimensions(object1->GetTexturedRect().GetWidth(),
-    object1->GetTexturedRect().GetHeight());
-
-    object2->GetCollider2D(0).SetAbsolutePosition(object2->GetTexturedRect().GetPositionX(),
-    object2->GetTexturedRect().GetPositionY());
-    object2->GetCollider2D(0).SetAbsoluteDimensions(object2->GetTexturedRect().GetWidth(),
-    object2->GetTexturedRect().GetHeight());
-}
-
-void HandleRendering()
-{
-    // Render our objects
     object1->GetTexturedRect().SetPosition(app->GetMouseX(), app->GetMouseY());
     object1->GetTexturedRect().SetDimension(100, 100);
 
@@ -109,9 +97,25 @@ void HandleRendering()
     object2->GetTexturedRect().SetPosition(posX, posY);
     object2->GetTexturedRect().SetDimension(100, 100);
 
+    object1->GetCollider2D(0).SetAbsolutePosition(object1->GetTexturedRect().GetPositionX(),
+    object1->GetTexturedRect().GetPositionY());
+    object1->GetCollider2D(0).SetAbsoluteDimensions(object1->GetTexturedRect().GetWidth(),
+    object1->GetTexturedRect().GetHeight());
+
+    object2->GetCollider2D(0).SetAbsolutePosition(object2->GetTexturedRect().GetPositionX(),
+    object2->GetTexturedRect().GetPositionY());
+    object2->GetCollider2D(0).SetAbsoluteDimensions(object2->GetTexturedRect().GetWidth(),
+    object2->GetTexturedRect().GetHeight());
+}
+
+void HandleRendering()
+{
     // Render our objects
     object1->Render();
     object2->Render();
+    //Render Text
+    DynamicText text1("./fonts/8bitOperatorPlus8-Regular.ttf", 16);
+    text1.DrawText(app->GetRenderer(), "Goose", 0, 0 ,100, 50);
 }
 
 int main()
@@ -121,6 +125,8 @@ int main()
     app = new SDLApp("SDL2", 20, 20, 640, 480);
     app->SetMaxFrameRate(8);
     app->InitAudio();
+    app->InitDynamicText();
+    
     // Create any objects in our scene
     
     object1 = new GameEntity(app->GetRenderer());

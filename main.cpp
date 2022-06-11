@@ -141,8 +141,6 @@ int main()
 
     CollisionSound = new Sound("/sounds/collide.wav");
     CollisionSound->SetupDevice();
-
-    
     
     // Set callback functions
     app->SetEventCallback(HandleEvents);

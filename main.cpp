@@ -114,8 +114,9 @@ void HandleRendering()
     object1->Render();
     object2->Render();
     //Render Text
-    DynamicText text1("./fonts/8bitOperatorPlus8-Regular.ttf", 16);
-    text1.DrawText(app->GetRenderer(), "Goose", 0, 0 ,100, 50);
+    text = new DynamicText("./fonts/8bitOperatorPlus8-Regular.ttf", 16);
+    text->DrawText(app->GetRenderer(), "Goose", 0, 0 ,100, 50);
+    delete text;
 }
 
 int main()
@@ -140,6 +141,9 @@ int main()
 
     CollisionSound = new Sound("/sounds/collide.wav");
     CollisionSound->SetupDevice();
+
+    
+    
     // Set callback functions
     app->SetEventCallback(HandleEvents);
     app->SetUpdateCallback(HandleUpdate);
@@ -151,6 +155,7 @@ int main()
     delete app;
     delete object1;
     delete object2;
+    delete CollisionSound;
 
     return 0;
 }
